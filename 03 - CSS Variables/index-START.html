@@ -9,18 +9,38 @@
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="20" data-sizing="px">
 
     <label for="blur">Blur:</label>
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+    <input id="blur" type="range" name="blur" min="0" max="25" value="0" data-sizing="px">
+
+    <label for="radius">Radius:</label>
+    <input id="radius" type="range" name="radius" min="0" max="50" value="15" data-sizing="%">
 
     <label for="base">Base Color</label>
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="cat.png" width="550" height="550">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 20px;
+      --blur: 0px;
+      --radius: 15%;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+      border-radius: var(--radius);
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +65,18 @@
   </style>
 
   <script>
+
+    function controlsChanged() {
+      const suffix = this.dataset.sizing || ""
+      const changedValue = this.value + suffix
+      document.documentElement.style.setProperty(`--${this.name}`, changedValue)
+    }
+
+    const controls = document.querySelectorAll(".controls input")
+
+    controls.forEach(control => control.addEventListener("change", controlsChanged))
+    controls.forEach(control => control.addEventListener("mousemove", controlsChanged))
+
   </script>
 
 </body>
