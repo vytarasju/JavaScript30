@@ -101,7 +101,13 @@ const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
 let lastBox = undefined
 
 function checkForMultipleSelect(e) {
-  if ((lastBox === undefined) || (this.checked && !e.shiftKey)) lastBox = this
+  /*Fixed some bugs from the FINISHED file: if first click is with shift key, it should act as
+  an ordinary select, if shift key is pressed, but last selection is not checked anymore - 
+  shift click again should act as a normal click*/
+  if (lastBox === undefined || 
+     (e.shiftKey === true && !lastBox.checked) ||
+     !e.shiftKey) lastBox = this
+
   else if (lastBox.checked && e.shiftKey === true) {
     let inBetween = false
     checkboxes.forEach(checkbox => {
