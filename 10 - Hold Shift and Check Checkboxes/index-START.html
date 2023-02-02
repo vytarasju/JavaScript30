@@ -97,6 +97,22 @@
   </div>
 
 <script>
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+let lastBox = undefined
+
+function checkForMultipleSelect(e) {
+  if ((lastBox === undefined) || (this.checked && !e.shiftKey)) lastBox = this
+  else if (lastBox.checked && e.shiftKey === true) {
+    let inBetween = false
+    checkboxes.forEach(checkbox => {
+      if (checkbox === this || checkbox === lastBox) inBetween = !inBetween
+
+      if (inBetween) checkbox.checked = true
+    })
+  }
+}
+
+checkboxes.forEach(checkbox => checkbox.addEventListener("click", checkForMultipleSelect))
 </script>
 </body>
 </html>
