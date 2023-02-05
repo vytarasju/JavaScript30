@@ -8,6 +8,25 @@
 </head>
 <body>
 <script>
+  const secretCode = "mostik"
+  const inputArray = new Array()
+
+  function saveKey(e){
+    inputArray.push(e.key)
+    if (inputArray.length > secretCode.length) inputArray.shift()
+    console.log(inputArray)
+    checkSecretCode()
+  }
+
+  function checkSecretCode() {
+    //let reducedInput = inputArray.reduce((accumulator, letter) => accumulator + letter, '')
+    if (inputArray.join('') === secretCode) {
+      console.log("YOU DID IT :)")
+      cornify_add() //2023.02.06 cornify database not accessible, limited functionality
+    }
+  }
+
+  window.addEventListener("keydown", saveKey)
 </script>
 </body>
 </html>
