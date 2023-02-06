@@ -76,6 +76,21 @@ h2 {
 
 .add-items input {
   padding: 10px;
+  margin: 3px;
   outline: 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10%;
+}
+
+.add-items input[type="submit"] {
+  background-color: rgb(96, 252, 96);
+}
+
+.delete-list input {
+  border-radius: 10%;
+  padding: 10px;
+  margin: 3px;
+  outline: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 112, 112);
 }
