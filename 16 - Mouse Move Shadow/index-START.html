@@ -8,7 +8,7 @@
 <body>
 
   <div class="hero">
-    <h1 contenteditable>🔥WOAH!</h1>
+    <h1 contenteditable>👻KSENIA</h1>
   </div>
 
   <style>
@@ -30,12 +30,39 @@
   }
 
   h1 {
-    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    text-shadow: 10px 10px 0 rgb(0, 0, 0);
     font-size: 100px;
   }
   </style>
 
 <script>
+const hero = document.querySelector(".hero")
+const text = document.querySelector("h1")
+const walk = 100 //px
+
+function shadow(e) {
+  const {offsetHeight: height, offsetWidth: width} = hero
+  let {offsetX: x, offsetY: y} = e
+  
+  if (this !== e.target){
+    x += e.target.offsetLeft
+    y += e.target.offsetTop
+  }
+  const xWalk = Math.round(((x / width) * walk) - (walk/2))
+  const yWalk = Math.round(((y / height) * walk) - (walk/2))
+
+  //const randomTo255 = () => Math.round(Math.random() * 255)
+  
+  text.style.textShadow = `
+  ${xWalk}px ${yWalk}px 0 rgb( 88, 24, 69 ),
+  ${xWalk * -1}px ${yWalk}px 0 rgb(255, 72, 125),
+  ${xWalk}px ${yWalk * -1}px 0 rgb(199, 0, 57),
+  ${xWalk * -1}px ${yWalk * -1}px 0 rgb(144, 12, 63)`
+
+}
+
+
+hero.addEventListener("mousemove", shadow)
 </script>
 </body>
-</html>
+</html>""
