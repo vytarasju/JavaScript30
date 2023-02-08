@@ -48,7 +48,28 @@
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+const articles = ["The ", "An ", "A "]
 
+const sortedBands = []
+
+//checks each band if it includes one of the articles. If it does, it splits the band name at the point of the article
+//it takes the second element of split array and pushes it to new array called "sortedBands"
+//since there are multiple articles, if none of the articles were found and band is still not sorted - push band name as it is
+bands.forEach(band => {
+  let bandSorted = false
+  articles.forEach( article => {
+    if(band.includes(article) && !bandSorted) {
+      sortedBands.push(band.split(article)[1])
+      bandSorted = true
+    }
+    else if (article === articles[articles.length - 1] && !bandSorted) sortedBands.push(band)
+  })
+})
+
+document.querySelector("#bands").innerHTML = 
+  sortedBands
+    .map(band => `<li>${band}</li>`)
+    .join("")
 
 </script>
 
