@@ -183,6 +183,24 @@
     </li>
   </ul>
 <script>
+
+  const timeNodeList = Array.from(document.querySelectorAll("[data-time]"))
+  const timeStamps = timeNodeList.map(node => node.dataset.time)
+  
+  let sumOfSeconds = timeStamps.reduce((sum, currentValue) => {
+    const separateStamp = currentValue.split(":")
+    const minutes = parseInt(separateStamp[0])
+    const seconds = parseInt(separateStamp[1])
+    return (sum + ((minutes * 60) + seconds))
+  }, 0)
+
+  const totalHours = Math.floor(sumOfSeconds/3600)
+  sumOfSeconds %= 3600;
+  const totalMinutes = Math.floor(sumOfSeconds / 60);
+  const totalSeconds = sumOfSeconds % 60;
+
+  console.log(`${totalHours}:${totalMinutes}:${totalSeconds}`)
+
 </script>
 </body>
 </html>
