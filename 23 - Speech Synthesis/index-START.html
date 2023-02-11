@@ -36,6 +36,54 @@
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
+
+  msg.text = document.querySelector('[name="text"]').value
+
+  //If you want to replace parts of name choices, else change to null
+  const replaceFrom = "Google"
+  const replaceTo = "G👀gle"
+
+  function populateVoices() {
+    voices = this.getVoices()
+    voicesDropdown.innerHTML = voices
+      .map(voice => {
+        const name = toggleNameChange(voice.name)
+        return `<option value="${name}">${name} (${voice.lang})</option>`
+      })
+      .join("")
+  }
+
+  function toggleNameChange(name) {
+    if (!replaceFrom || !replaceTo) return name
+    else if (name.includes(replaceTo)) return name.replace(replaceTo, replaceFrom)
+    else return name.replace(replaceFrom, replaceTo)
+  }
+
+  function setVoice() {
+    const inputName = toggleNameChange(this.value)
+    msg.voice = voices.find(voice => voice.name === inputName)
+    toggle()
+  }
+  
+  function optionChange() {
+    msg[this.name] = this.value
+    toggle()
+  }
+
+  function toggle(startOver = true) {
+    speechSynthesis.cancel()
+    if (startOver) {
+      speechSynthesis.speak(msg)
+    }
+  }
+
+  speechSynthesis.addEventListener("voiceschanged", populateVoices)
+  voicesDropdown.addEventListener("change", setVoice)
+  options.forEach(option => option.addEventListener("change", optionChange))
+
+  speakButton.addEventListener("click", toggle)
+  stopButton.addEventListener("click", () => toggle(false))
+
 </script>
 
 </body>
